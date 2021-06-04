@@ -5,11 +5,11 @@ from datetime import datetime
 
 
 #Parametros
-api_id = XXXXX #dados fornecidos pelo telegram
-api_hash = 'XXXXXX' #dados fornecidos pelo telegram
-txtSearch = ['closed'] #defina um conjunto chave de caracteres que devem ser buscados entre as mensagens
-numLimit = 5 #Sempre utilizar 1, evita retrabalho com mensagens duplicadas, assim a coleta será sempre da ultima mensagem
-chatOrGroup = None #coloca o nome do grupo ou chat_id do grupo
+api_id = XXXXX #dados fornecidos pelo telegram.
+api_hash = 'XXXXXX' #dados fornecidos pelo telegram.
+txtSearch = ['closed'] #defina um conjunto chave de expressões que devem ser buscados entre as mensagens. Devem estar em aspas e numa lista ['xxx', 'yyy', 'cccc'].
+numLimit = 5 #Este número determina a quantidade de mensagens que serão coletadas a cada consulta ao seu telegram.
+chatOrGroup = None #'None' para pesquisar em todos os grupos/chats/contatos ou coloca o nome do grupo ou chat_id do grupo
 delay = 5 #defina em segundos o tempo de espera entre uma execução e outra das buscas por novas mensagens
 conexao = pymysql.connect(db='telagram_mensagens', user='root', passwd='test') #dados conexão com o BD
 
