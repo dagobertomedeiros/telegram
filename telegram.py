@@ -4,6 +4,8 @@ import time, datetime
 from datetime import datetime
 
 
+
+
 #Parametros
 <<<<<<< HEAD
 api_id = xxxx #dados fornecidos pelo telegram
