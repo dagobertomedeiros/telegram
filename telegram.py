@@ -23,7 +23,7 @@ chatOrGroup = None #'None' para pesquisar em todos os grupos/chats/contatos ou c
 delay = 5 #defina em segundos o tempo de espera entre uma execução e outra das buscas por novas mensagens
 listIdChat = []#defina uma lista com os ID's dos grupos e canais que aceitará gravar as mensagens ou deixe a lista vazia
 conexao = pymysql.connect(db='telagram_mensagens', user='root', passwd='test') #dados conexão com o BD
-queryInsert = 'INSERT INTO telegram_message (IDMESSAGE, TXTMESSAGE, DATEINSERT, IDCHAT, IDCHAT, TITLECHAT, IDCHATGROUP, SENDERID, SENDERFIRSTNAME, IDMIDIA) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)' #query para insert de dados
+queryInsert = 'INSERT INTO telegram_message (IDMESSAGE, TXTMESSAGE, DATEINSERT, IDCHAT, TITLECHAT, IDCHATGROUP, SENDERID, SENDERFIRSTNAME, IDMIDIA) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)' #query para insert de dados
 querySelect = 'SELECT IDMESSAGE FROM telagram_mensagens.telegram_message' #query para consultar ids já cadastrados no BD
 directory = 'nome_da_pasta' #informe o nome da pasta onde salvará as midias. IMPORTANTE: a pasta deve estar localizada dentro da pasta onde localizar o script.
 
