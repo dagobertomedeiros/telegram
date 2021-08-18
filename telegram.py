@@ -23,8 +23,9 @@ chatOrGroup = None #'None' para pesquisar em todos os grupos/chats/contatos ou c
 delay = 5 #defina em segundos o tempo de espera entre uma execução e outra das buscas por novas mensagens
 listIdChat = []#defina uma lista com os ID's dos grupos e canais que aceitará gravar as mensagens ou deixe a lista vazia
 conexao = pymysql.connect(db='telagram_mensagens', user='root', passwd='test') #dados conexão com o BD
-queryInsert = 'INSERT INTO telegram_message (IDMESSAGE, TXTMESSAGE, DATEINSERT, IDCHAT) VALUES (%s, %s, %s, %s)' #query para insert de dados
+queryInsert = 'INSERT INTO telegram_message (IDMESSAGE, TXTMESSAGE, DATEINSERT, IDCHAT, IDCHAT, TITLECHAT, IDCHATGROUP, SENDERID, SENDERFIRSTNAME, IDMIDIA) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)' #query para insert de dados
 querySelect = 'SELECT IDMESSAGE FROM telagram_mensagens.telegram_message' #query para consultar ids já cadastrados no BD
+directory = 'nome_da_pasta' #informe o nome da pasta onde salvará as midias. IMPORTANTE: a pasta deve estar localizada dentro da pasta onde localizar o script.
 
 
 numRegistros = 0
@@ -50,14 +51,20 @@ while(True):
     numSearch = len(txtSearch)
     while(countSearch < numSearch):
         for message in client.get_messages(entity=chatOrGroup, search=txtSearch[countSearch], limit=numLimit):
+            message.download_media(directory + '/' + str(message.photo.id))
             txtMessage = message.message
             idMessage = message.id
             idChat = message.peer_id
             dateMsg = message.date
+            titleChat = message.chat.title
+            idChatGroup = message.chat_id
+            senderId = message.sender.id
+            senderFirstName = message.sender.first_name
+            idMidia = message.photo.id
             if (idMessage not in idTemp) and (idMessage not in listBD):
                 if len(listIdChat) > 0:
                     if idChat in listIdChat:
-                        sqlDados = (idMessage, txtMessage, dateMsg, idChat)
+                        sqlDados = (idMessage, txtMessage, dateMsg, idChat, titleChat, idChatGroup, senderId, senderFirstName, idMidia)
                         conexao.ping(reconnect=True)
                         cursor.execute(queryInsert, sqlDados)
                         conexao.commit()
@@ -66,7 +73,7 @@ while(True):
                         idTemp.append(idMessage)
                         print('Total de registros inseridos -> ', numRegistros,'\n')
                 elif len(listIdChat) == 0:
-                    sqlDados = (idMessage, txtMessage, dateMsg, idChat)
+                    sqlDados = (idMessage, txtMessage, dateMsg, idChat, titleChat, idChatGroup, senderId, senderFirstName, idMidia)
                     conexao.ping(reconnect=True)
                     cursor.execute(queryInsert, sqlDados)
                     conexao.commit()
