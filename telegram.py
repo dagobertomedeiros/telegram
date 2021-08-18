@@ -61,6 +61,7 @@ while(True):
                 otherName = otherName.replace('+','')
                 otherName = otherName.replace(' ','')
                 message.download_media( directory + '/foto' + otherName + str(numRegistros) )
+                idMidia = 0
                 continue
             txtMessage = message.message
             idMessage = message.id
