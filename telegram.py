@@ -51,11 +51,17 @@ while(True):
     numSearch = len(txtSearch)
     while(countSearch < numSearch):
         for message in client.get_messages(entity=chatOrGroup, search=txtSearch[countSearch], limit=numLimit):
-            if hasattr(message, 'photo.id') == False:
-                message.download_media(directory + '/' + str(message.photo.id))
+            try:
+                message.download_media( directory + '/' + str(message.photo.id))
                 idMidia = message.photo.id
-            else:
-                idMidia = 0
+            except:
+                otherName = str(message.date)
+                otherName = otherName.replace('-','')
+                otherName = otherName.replace(':','')
+                otherName = otherName.replace('+','')
+                otherName = otherName.replace(' ','')
+                message.download_media( directory + '/foto' + otherName + str(numRegistros) )
+                continue
             txtMessage = message.message
             idMessage = message.id
             idChat = message.peer_id
